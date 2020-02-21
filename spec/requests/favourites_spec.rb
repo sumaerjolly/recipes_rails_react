@@ -75,4 +75,36 @@ RSpec.describe 'favourites', type: :request do
 
 		end
 	end	
+
+	describe 'DELETE /favourites' do
+		before {
+				@user = User.create(username: "lets", password: "password", password_confirmation: "password")
+				@recipe = Recipe.create(
+					name: "Recipe 1",
+					ingredients: 'testing',
+					instruction: 'Testing Insturctions'
+				)
+				@recipe1 = Recipe.create(
+					name: "Recipe 2",
+					ingredients: 'tesing 2 ',
+					instruction: 'Testing again'
+				)
+				post '/sessions',params: {
+					user: {
+            username: "lets" ,
+            password: "password"
+          }
+				}
+				@favourite1 = Favourite.create(user_id: @user.id, recipe_id: @recipe.id)
+				@favourite2 = Favourite.create(user_id: @user.id, recipe_id: @recipe1.id)
+				delete "/api/v1/favourites/#{@recipe.id}"
+		}
+
+		it "deletes a favourite from the favourites list" do 
+			get '/api/v1/favourites'
+			result = JSON.parse(response.body)
+			expect(result.length).to eq(1)
+		end
+		
+	end
 end

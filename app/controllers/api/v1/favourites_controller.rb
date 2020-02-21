@@ -24,12 +24,16 @@ class Api::V1::FavouritesController < ApplicationController
   end
 
   def destroy
-    favourite = @current_user.favourites.find_by(recipe_id: params[:id])
-    if favourite
-      favourite.destroy
-      render json: { message: 'Removed from favourites' }
-    else
-      render json: {message:'There was an error' }
+    if @current_user
+      favourite = @current_user.favourites.find_by(recipe_id: params[:id])
+      if favourite
+        favourite.destroy
+        render json: { message: 'Removed from favourites' }
+      else
+        render json: {message:'There was an error' }
+      end
+    else 
+      render json: {message: "You need to be signed in"}, status: 500
     end
   end
 end
