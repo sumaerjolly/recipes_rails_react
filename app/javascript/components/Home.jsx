@@ -50,7 +50,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Status: {this.props.loggedInStatus}</h1>
+        <h1>Hi User: {this.props.userGet}</h1>
         <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />
         <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
         <Link to="/dashboard" role="button">

@@ -28,7 +28,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      loggedInStatus: 'NOT_LOGGED_IN',
       user: {}
     };
     this.handleLogin = this.handleLogin.bind(this);
@@ -39,20 +38,12 @@ class App extends Component {
     axios
       .get('logged_in.json', { withCredentials: true })
       .then(response => {
-        if (
-          response.data.logged_in &&
-          this.state.loggedInStatus === 'NOT_LOGGED_IN'
-        ) {
+        if (response.data.logged_in) {
           this.setState({
-            loggedInStatus: 'LOGGED_IN',
             user: response.data.user
           });
-        } else if (
-          !response.data.logged_in &
-          (this.state.loggedInStatus === 'LOGGED_IN')
-        ) {
+        } else if (!response.data.logged_in) {
           this.setState({
-            loggedInStatus: 'NOT_LOGGED_IN',
             user: {}
           });
         }
@@ -68,14 +59,12 @@ class App extends Component {
 
   handleLogin(data) {
     this.setState({
-      loggedInStatus: 'LOGGED_IN',
       user: data.user
     });
   }
 
   handleLogout() {
     this.setState({
-      loggedInStatus: 'NOT_LOGGED_IN',
       user: {}
     });
   }
@@ -93,7 +82,7 @@ class App extends Component {
                   {...props}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  userGet={this.state.user.username}
                 />
               )}
             />
@@ -101,10 +90,7 @@ class App extends Component {
               path="/dashboard"
               exact
               render={props => (
-                <Dashboard
-                  {...props}
-                  loggedInStatus={this.state.loggedInStatus}
-                />
+                <Dashboard {...props} userGet={this.state.user.username} />
               )}
             />
           </Switch>
