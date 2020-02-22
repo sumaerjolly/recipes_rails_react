@@ -6,6 +6,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home';
+import { connect } from 'react-redux';
+import { login, logout } from '../actions/index';
 import Dashboard from './Dashboard';
 // normal method
 // class App extends Component {
@@ -35,6 +37,7 @@ class App extends Component {
   }
 
   checkLoginStatus() {
+    const { login, logout } = this.props;
     axios
       .get('logged_in.json', { withCredentials: true })
       .then(response => {
@@ -42,10 +45,9 @@ class App extends Component {
           this.setState({
             user: response.data.user
           });
+          login(response.data.user);
         } else if (!response.data.logged_in) {
-          this.setState({
-            user: {}
-          });
+          logout();
         }
       })
       .catch(error => {
@@ -58,15 +60,19 @@ class App extends Component {
   }
 
   handleLogin(data) {
+    const { login } = this.props;
     this.setState({
       user: data.user
     });
+    login(data.user);
   }
 
   handleLogout() {
     this.setState({
       user: {}
     });
+    const { logout } = this.props;
+    logout();
   }
 
   render() {
@@ -82,7 +88,7 @@ class App extends Component {
                   {...props}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
-                  userGet={this.state.user.username}
+                  currentUser={this.state.user.username}
                 />
               )}
             />
@@ -90,7 +96,7 @@ class App extends Component {
               path="/dashboard"
               exact
               render={props => (
-                <Dashboard {...props} userGet={this.state.user.username} />
+                <Dashboard {...props} currentUser={this.state.user.username} />
               )}
             />
           </Switch>
@@ -100,4 +106,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: user => dispatch(login(user)),
+  logout: () => dispatch(logout())
+});
+
+// export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
