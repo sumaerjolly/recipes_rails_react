@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { setRecipes } from '../actions';
 
 class Recipes extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const { setRecipes } = this.props;
     axios
@@ -15,6 +20,7 @@ class Recipes extends Component {
       })
       .catch(() => this.props.history.push('/'));
   }
+
   render() {
     const { recipes } = this.props;
     const allRecipes = recipes.map((recipe, index) => (
@@ -27,6 +33,7 @@ class Recipes extends Component {
           />
           <div>
             <h5>{recipe.name}</h5>
+            <Link to={`/recipe/${recipe.id}`}>View Recipe</Link>
           </div>
         </div>
       </div>

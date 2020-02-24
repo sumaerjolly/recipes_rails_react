@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { login, logout } from '../actions/index';
 import Dashboard from './Dashboard';
 import Recipes from './Recipes';
+import Recipe from './Recipe';
 // normal method
 // class App extends Component {
 //   render() {
@@ -101,6 +102,7 @@ class App extends Component {
               )}
             />
             <Route path="/recipes" exact component={Recipes} />
+            <Route path="/recipe/:id" exact component={Recipe} />
           </Switch>
         </Router>
       </div>

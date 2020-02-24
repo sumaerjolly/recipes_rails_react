@@ -12,4 +12,9 @@ const setRecipes = recipes => ({
   recipes: recipes
 });
 
-export { login, logout, setRecipes };
+const setRecipeDetails = recipe => ({
+  type: 'SET_RECIPE_DETAILS',
+  recipe: recipe
+});
+
+export { login, logout, setRecipes, setRecipeDetails };
