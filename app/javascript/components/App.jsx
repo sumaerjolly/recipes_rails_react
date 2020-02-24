@@ -11,6 +11,7 @@ import { login, logout } from '../actions/index';
 import Dashboard from './Dashboard';
 import Recipes from './Recipes';
 import Recipe from './Recipe';
+import Favourites from './Favourites';
 // normal method
 // class App extends Component {
 //   render() {
@@ -102,6 +103,7 @@ class App extends Component {
               )}
             />
             <Route path="/recipes" exact component={Recipes} />
+            <Route path="/favourites" exact component={Favourites} />
             <Route path="/recipe/:id" exact component={Recipe} />
           </Switch>
         </Router>

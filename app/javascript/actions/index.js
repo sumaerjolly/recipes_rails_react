@@ -17,4 +17,9 @@ const setRecipeDetails = recipe => ({
   recipe: recipe
 });
 
-export { login, logout, setRecipes, setRecipeDetails };
+const setFavourites = favourites => ({
+  type: 'SET_FAVOURITES',
+  favourites: favourites
+});
+
+export { login, logout, setRecipes, setRecipeDetails, setFavourites };

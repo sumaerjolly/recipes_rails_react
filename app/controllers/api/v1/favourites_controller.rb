@@ -3,7 +3,7 @@ class Api::V1::FavouritesController < ApplicationController
   
   def index
     if @current_user 
-      favourites = @current_user.favourites
+      favourites = @current_user.recipes
       render json: favourites
     else 
       render json: {message: "You need to be signed in"}, status: 500
