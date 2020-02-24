@@ -7,4 +7,9 @@ const logout = () => ({
   type: 'LOGOUT'
 });
 
-export { login, logout };
+const setRecipes = recipes => ({
+  type: 'SET_RECIPES',
+  recipes: recipes
+});
+
+export { login, logout, setRecipes };

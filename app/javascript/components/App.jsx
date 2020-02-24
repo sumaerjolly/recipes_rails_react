@@ -9,6 +9,7 @@ import Home from './Home';
 import { connect } from 'react-redux';
 import { login, logout } from '../actions/index';
 import Dashboard from './Dashboard';
+import Recipes from './Recipes';
 // normal method
 // class App extends Component {
 //   render() {
@@ -99,6 +100,7 @@ class App extends Component {
                 <Dashboard {...props} currentUser={this.state.user.username} />
               )}
             />
+            <Route path="/recipes" exact component={Recipes} />
           </Switch>
         </Router>
       </div>
