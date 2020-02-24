@@ -16,9 +16,25 @@ class Recipes extends Component {
       .catch(() => this.props.history.push('/'));
   }
   render() {
+    const { recipes } = this.props;
+    const allRecipes = recipes.map((recipe, index) => (
+      <div key={index}>
+        <div>
+          <img
+            src={recipe.image}
+            alt={`${recipe.name} image`}
+            style={{ width: 300, height: 300 }}
+          />
+          <div>
+            <h5>{recipe.name}</h5>
+          </div>
+        </div>
+      </div>
+    ));
     return (
       <div>
-        <h1>Is this working?</h1>
+        <h1>Recipes</h1>
+        <div>{allRecipes}</div>
       </div>
     );
   }
