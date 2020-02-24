@@ -8,6 +8,7 @@ class Recipe extends Component {
   constructor(props) {
     super(props);
     this.addHtmlEntities = this.addHtmlEntities.bind(this);
+    this.addToFavourites = this.addToFavourites.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,22 @@ class Recipe extends Component {
       .replace(/&gt;/g, '>');
   }
 
+  addToFavourites() {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    axios
+      .post(' /api/v1/favourites', { id: id })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log('favourites errror', error);
+      });
+  }
+
   render() {
     const { recipe } = this.props;
     const ingredientList = recipe.ingredients;
@@ -57,6 +74,7 @@ class Recipe extends Component {
               __html: `${recipeInstruction}`
             }}
           />
+          <button onClick={this.addToFavourites}>Add To Favourites</button>
         </div>
       </div>
     );
