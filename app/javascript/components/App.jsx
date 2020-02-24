@@ -12,6 +12,8 @@ import Dashboard from './Dashboard';
 import Recipes from './Recipes';
 import Recipe from './Recipe';
 import Favourites from './Favourites';
+import Registration from './auth/Registration';
+import Login from './auth/Login';
 // normal method
 // class App extends Component {
 //   render() {
@@ -100,6 +102,20 @@ class App extends Component {
               exact
               render={props => (
                 <Dashboard {...props} currentUser={this.state.user.username} />
+              )}
+            />
+            <Route
+              path="/signup"
+              exact
+              render={props => (
+                <Registration {...props} handleLogin={this.handleLogin} />
+              )}
+            />
+            <Route
+              path="/login"
+              exact
+              render={props => (
+                <Login {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route path="/recipes" exact component={Recipes} />

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Registration from './auth/Registration';
-import Login from './auth/Login';
 
 // class Home extends Component {
 //   constructor(props) {
@@ -28,12 +26,7 @@ import Login from './auth/Login';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
-  }
-  handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-    this.props.history.push('/dashboard');
   }
 
   handleLogoutClick() {
@@ -51,8 +44,8 @@ class Home extends Component {
     return (
       <div>
         <h1>Hi User: {this.props.currentUser}</h1>
-        <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />
-        <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
+        <Link to="/signup">Signup</Link>
+        <Link to="/login">Login</Link>
         <Link to="/dashboard" role="button">
           Dashboard Test
         </Link>

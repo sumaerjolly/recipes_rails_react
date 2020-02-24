@@ -11,7 +11,14 @@ class Login extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
   }
+
+  handleSuccessfulAuth(data) {
+    this.props.handleLogin(data);
+    this.props.history.push('/dashboard');
+  }
+
   handleSubmit(e) {
     axios
       .post(
@@ -28,7 +35,7 @@ class Login extends Component {
       )
       .then(response => {
         if (response.data.logged_in) {
-          this.props.handleSuccessfulAuth(response.data);
+          this.handleSuccessfulAuth(response.data);
         }
       })
       .catch(error => {
