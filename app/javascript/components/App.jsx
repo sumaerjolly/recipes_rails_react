@@ -1,7 +1,3 @@
-// import React from 'react';
-// import Routes from '../routes/Index';
-
-// export default props => <>{Routes}</>;
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
@@ -15,23 +11,7 @@ import Favourites from './Favourites';
 import Registration from './auth/Registration';
 import Login from './auth/Login';
 import Navbar from './Navbar';
-// normal method
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="app">
-//         <Router>
-//           <Switch>
-//             <Route path="/" exact component={Home} />
-//             <Route path="/dashboard" exact component={Dashboard} />
-//           </Switch>
-//         </Router>
-//       </div>
-//     );
-//   }
-// }
 
-// with the redirect from authentication
 class App extends Component {
   constructor() {
     super();
@@ -144,7 +124,6 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-// export default App;
 export default connect(
   mapStateToProps,
   mapDispatchToProps

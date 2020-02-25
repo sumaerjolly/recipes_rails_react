@@ -9,7 +9,7 @@ class Navbar extends Component {
   }
   handleLogoutClick() {
     axios
-      .delete('logout.json', { withCredentials: true })
+      .delete('/logout', { withCredentials: true })
       .then(response => {
         this.props.handleLogout();
         this.props.history.push('/');

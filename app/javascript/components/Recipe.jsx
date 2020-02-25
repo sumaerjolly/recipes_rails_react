@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { setRecipeDetails } from '../actions';
+import { setRecipeDetails, setFavourites } from '../actions';
 
 class Recipe extends Component {
   constructor(props) {
     super(props);
     this.addHtmlEntities = this.addHtmlEntities.bind(this);
     this.addToFavourites = this.addToFavourites.bind(this);
+    this.getFavourites = this.getFavourites.bind(this);
+    this.favouritesButton = this.favouritesButton.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +29,7 @@ class Recipe extends Component {
         }
       })
       .catch(() => this.props.history.push('/'));
+    this.getFavourites();
   }
 
   addHtmlEntities(str) {
@@ -52,6 +55,35 @@ class Recipe extends Component {
       });
   }
 
+  getFavourites() {
+    const { setFavourites } = this.props;
+    axios
+      .get(' /api/v1/favourites')
+      .then(response => {
+        setFavourites(response.data);
+      })
+      .catch(error => {
+        console.log('favourites error', error);
+      });
+  }
+
+  favouritesButton() {
+    let {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    const { favourites } = this.props;
+    const favouritesId = favourites.map(recipe => recipe.id);
+    id = Number(id);
+
+    return favouritesId.includes(id) ? (
+      <button>Added To Favourites</button>
+    ) : (
+      <button onClick={this.addToFavourites}>Add To Favourites</button>
+    );
+  }
+
   render() {
     const { recipe } = this.props;
     const ingredientList = recipe.ingredients;
@@ -75,7 +107,7 @@ class Recipe extends Component {
               __html: `${recipeInstruction}`
             }}
           />
-          <button onClick={this.addToFavourites}>Add To Favourites</button>
+          {this.favouritesButton()}
         </div>
       </div>
     );
@@ -83,11 +115,13 @@ class Recipe extends Component {
 }
 const mapStateToProps = state => ({
   user: state.user,
-  recipe: state.recipe
+  recipe: state.recipe,
+  favourites: state.favourites
 });
 
 const mapDispatchToProps = dispatch => ({
-  setRecipeDetails: recipe => dispatch(setRecipeDetails(recipe))
+  setRecipeDetails: recipe => dispatch(setRecipeDetails(recipe)),
+  setFavourites: favourites => dispatch(setFavourites(favourites))
 });
 
 export default connect(
