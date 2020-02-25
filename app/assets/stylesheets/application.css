@@ -36,3 +36,7 @@ form:before {
   font-weight: 400;
   border-color: orangered;
 }
+
+a {
+  cursor: pointer;
+}
