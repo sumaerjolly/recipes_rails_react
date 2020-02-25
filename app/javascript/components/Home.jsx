@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 // class Home extends Component {
 //   constructor(props) {
@@ -26,30 +27,12 @@ import { Link } from 'react-router-dom';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-  }
-
-  handleLogoutClick() {
-    axios
-      .delete('logout.json', { withCredentials: true })
-      .then(response => {
-        this.props.handleLogout();
-      })
-      .catch(error => {
-        console.log('logout error', error);
-      });
   }
 
   render() {
     return (
       <div>
-        <h1>Hi User: {this.props.currentUser}</h1>
-        <Link to="/signup">Signup</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/dashboard" role="button">
-          Dashboard Test
-        </Link>
-        <button onClick={() => this.handleLogoutClick()}>Logout</button>
+        <h1>HomePage</h1>
       </div>
     );
   }

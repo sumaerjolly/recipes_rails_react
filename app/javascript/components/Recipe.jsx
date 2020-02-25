@@ -45,6 +45,7 @@ class Recipe extends Component {
       .post(' /api/v1/favourites', { id: id })
       .then(response => {
         console.log(response);
+        this.props.history.push('/favourites');
       })
       .catch(error => {
         console.log('favourites errror', error);

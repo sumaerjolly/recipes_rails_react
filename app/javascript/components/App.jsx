@@ -14,6 +14,7 @@ import Recipe from './Recipe';
 import Favourites from './Favourites';
 import Registration from './auth/Registration';
 import Login from './auth/Login';
+import Navbar from './Navbar';
 // normal method
 // class App extends Component {
 //   render() {
@@ -81,9 +82,15 @@ class App extends Component {
   }
 
   render() {
+    const { user } = this.props;
+    // console.log(user.user.username);
     return (
       <div className="app">
         <Router>
+          <Navbar
+            currentUser={user.user.username}
+            handleLogout={this.handleLogout}
+          />
           <Switch>
             <Route
               path="/"
@@ -93,7 +100,7 @@ class App extends Component {
                   {...props}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
-                  currentUser={this.state.user.username}
+                  currentUser={user.user.username}
                 />
               )}
             />
@@ -101,7 +108,7 @@ class App extends Component {
               path="/dashboard"
               exact
               render={props => (
-                <Dashboard {...props} currentUser={this.state.user.username} />
+                <Dashboard {...props} currentUser={user.user.username} />
               )}
             />
             <Route
