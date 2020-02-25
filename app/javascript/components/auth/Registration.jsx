@@ -8,11 +8,12 @@ class Registration extends Component {
       username: '',
       password: '',
       password_confirmation: '',
-      registrationErrors: ''
+      registrationErrors: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+    this.errorAlert = this.errorAlert.bind(this);
   }
 
   handleSuccessfulAuth(data) {
@@ -42,6 +43,10 @@ class Registration extends Component {
       })
       .catch(error => {
         console.log('registration error', error);
+        this.setState({
+          ...this.state,
+          registrationErrors: true
+        });
       });
     e.preventDefault();
   }
@@ -52,9 +57,31 @@ class Registration extends Component {
     });
   }
 
+  errorAlert() {
+    if (this.state.registrationErrors) {
+      return (
+        <div
+          className="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          Please Recheck your entered credentials
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
+        {this.errorAlert()}
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
