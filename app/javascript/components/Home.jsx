@@ -12,6 +12,9 @@ class Home extends Component {
     return (
       <div>
         <h1>HomePage</h1>
+        <button type="button" className="btn btn-primary">
+          Primary
+        </button>
       </div>
     );
   }
