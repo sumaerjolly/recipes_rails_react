@@ -11,6 +11,7 @@ class Recipe extends Component {
     this.addToFavourites = this.addToFavourites.bind(this);
     this.getFavourites = this.getFavourites.bind(this);
     this.favouritesButton = this.favouritesButton.bind(this);
+    this.getIngredients = this.getIngredients.bind(this);
   }
 
   componentDidMount() {
@@ -78,36 +79,75 @@ class Recipe extends Component {
     id = Number(id);
 
     return favouritesId.includes(id) ? (
-      <button>Added To Favourites</button>
+      <button className="btn">
+        <span aria-label="a rocket blasting off" role="img">
+          ✅
+        </span>
+        Added To Favourites
+      </button>
     ) : (
-      <button onClick={this.addToFavourites}>Add To Favourites</button>
+      <button className="btn-custom" onClick={this.addToFavourites}>
+        Add To Favourites
+      </button>
     );
+  }
+
+  getIngredients() {
+    const { recipe } = this.props;
+    let ingredientList = recipe.ingredients;
+    console.log(ingredientList);
+    console.log(typeof recipe.ingredients);
+    if (ingredientList) {
+      ingredientList = recipe.ingredients
+        .split(',')
+        .map((ingredient, index) => (
+          <li key={index} className="list-group-item">
+            {ingredient}
+          </li>
+        ));
+      return ingredientList;
+    }
   }
 
   render() {
     const { recipe } = this.props;
-    const ingredientList = recipe.ingredients;
     const recipeInstruction = this.addHtmlEntities(recipe.instruction);
     return (
-      <div>
-        <img
-          src={recipe.image}
-          alt={`${recipe.name} image`}
-          style={{ width: 300, height: 300 }}
-        />
-        <h1> {recipe.name}</h1>
-        <ul>
-          <h5>Ingredient List</h5>
-          {ingredientList}
-        </ul>
-        <div>
-          <h5>Preparation Instructions</h5>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: `${recipeInstruction}`
-            }}
+      <div className="">
+        <div className="hero position-relative d-flex align-items-center justify-content-center">
+          <img
+            src={recipe.image}
+            alt={`${recipe.name} image`}
+            className="img-fluid position-absolute"
           />
-          {this.favouritesButton()}
+          <div className="overlay bg-dark position-absolute" />
+          <h1 className="display-4 position-relative text-white">
+            {recipe.name}
+          </h1>
+        </div>
+        <div className="container py-5">
+          <div className="row">
+            <div className="col-sm-12 col-lg-3">
+              <ul className="list-group">
+                <h5 className="mb-2">Ingredients</h5>
+                {this.getIngredients()}
+              </ul>
+            </div>
+            <div className="col-sm-12 col-lg-6">
+              <h5 className="mb-3 mt-2">Preparation Instructions</h5>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `${recipeInstruction}`
+                }}
+              />
+            </div>
+            <div className="col-sm-12 col-lg-3 mt-3">
+              {this.favouritesButton()}
+            </div>
+          </div>
+          <Link to="/recipes" className="btn btn-link">
+            Back to recipes
+          </Link>
         </div>
       </div>
     );
