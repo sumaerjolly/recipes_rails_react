@@ -1,4 +1,4 @@
-#cover {
+.cover {
   background: #222 url('https://source.unsplash.com/1600x900/?food,drink')
     center center no-repeat;
   background-size: cover;
@@ -9,13 +9,12 @@
   position: relative;
 }
 
-#cover-caption {
+.cover-caption {
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
-/* only used for background overlay not needed for centering */
 form:before {
   content: '';
   height: 100%;

@@ -24,7 +24,7 @@ class Registration extends Component {
   handleSubmit(e) {
     axios
       .post(
-        'http://localhost:3000/registrations',
+        '/registrations',
         {
           user: {
             username: this.state.username,
@@ -82,8 +82,8 @@ class Registration extends Component {
     return (
       <div>
         {this.errorAlert()}
-        <section id="cover" className="min-vh-100">
-          <div id="cover-caption">
+        <section className="min-vh-100 cover">
+          <div className="cover-caption">
             <div className="container">
               <div className="row text-white">
                 <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">

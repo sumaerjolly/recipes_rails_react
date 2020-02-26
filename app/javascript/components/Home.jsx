@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
 
 class Home extends Component {
   constructor(props) {
@@ -11,10 +8,19 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>HomePage</h1>
-        <button type="button" className="btn btn-primary">
-          Primary
-        </button>
+        <section className="min-vh-100 cover">
+          <div className="cover-caption">
+            <div className="container">
+              <div className="row text-white">
+                <div className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                  <h3 className="display-4 py-2 text-truncate">
+                    Tasty Recipes
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
