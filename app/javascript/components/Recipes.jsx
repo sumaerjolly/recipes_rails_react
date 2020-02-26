@@ -6,12 +6,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import { setRecipes } from '../actions';
 
 class Recipes extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
-    const { setRecipes } = this.props;
+    const { setRecipes, history } = this.props;
     axios
       .get('/api/v1/recipes')
       .then(response => {
@@ -19,17 +15,17 @@ class Recipes extends Component {
           setRecipes(response.data);
         }
       })
-      .catch(() => this.props.history.push('/'));
+      .catch(() => history.push('/'));
   }
 
   render() {
     const { recipes } = this.props;
-    const allRecipes = recipes.map((recipe, index) => (
-      <Carousel.Item key={index}>
+    const allRecipes = recipes.map(recipe => (
+      <Carousel.Item key={recipe.id}>
         <img
           className="d-block w-100"
           src={recipe.image}
-          alt={`${recipe.name} image`}
+          alt={`${recipe.name}`}
         />
         <Carousel.Caption>
           <h3>{recipe.name}</h3>
