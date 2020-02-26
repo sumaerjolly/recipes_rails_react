@@ -24,9 +24,6 @@ class Favourites extends Component {
       .get(' /api/v1/favourites')
       .then(response => {
         setFavourites(response.data);
-      })
-      .catch(error => {
-        console.log('favourites error', error);
       });
   }
 
@@ -34,11 +31,8 @@ class Favourites extends Component {
     const { id } = e.target;
     axios
       .delete(`/api/v1/favourites/${id}`)
-      .then(response => {
+      .then(() => {
         this.getFavourites();
-      })
-      .catch(error => {
-        console.log('delete errors', error);
       });
   }
 
@@ -52,7 +46,9 @@ class Favourites extends Component {
       </p>
     );
     if (favourites.length > 0) {
+      /* eslint-disable */
       yourFavourites = favourites.map((favourite, index) => (
+        /* eslint-disable */
         <Card className="text-center" key={index}>
           <Card.Img
             variant="top"
