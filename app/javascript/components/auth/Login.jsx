@@ -16,18 +16,20 @@ class Login extends Component {
   }
 
   handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-    this.props.history.push('/recipes');
+    const { handleLogin, history } = this.props;
+    handleLogin(data);
+    history.push('/recipes');
   }
 
   handleSubmit(e) {
+    const { username, password } = this.state;
     axios
       .post(
         '/sessions',
         {
           user: {
-            username: this.state.username,
-            password: this.state.password,
+            username,
+            password,
           },
         },
         {
@@ -38,14 +40,11 @@ class Login extends Component {
         if (response.data.logged_in) {
           this.handleSuccessfulAuth(response.data);
         } else if (response.data.status === 401) {
-          this.setState({
-            ...this.state,
+          this.setState(prevState => ({
+            ...prevState,
             loginErrors: true,
-          });
+          }));
         }
-      })
-      .catch(error => {
-        console.log('login error', error);
       });
     e.preventDefault();
   }
@@ -57,7 +56,8 @@ class Login extends Component {
   }
 
   errorAlert() {
-    if (this.state.loginErrors) {
+    const { loginErrors } = this.state;
+    if (loginErrors) {
       return (
         <div
           className="alert alert-warning alert-dismissible fade show mt-0 mb-0"
@@ -75,9 +75,11 @@ class Login extends Component {
         </div>
       );
     }
+    return null;
   }
 
   render() {
+    const { password, username } = this.state;
     return (
       <div>
         {this.errorAlert()}
@@ -99,7 +101,7 @@ class Login extends Component {
                           className="form-control"
                           name="username"
                           placeholder="Username"
-                          value={this.state.username}
+                          value={username}
                           onChange={this.handleChange}
                           required
                         />
@@ -111,7 +113,7 @@ class Login extends Component {
                           type="password"
                           name="password"
                           placeholder="Password"
-                          value={this.state.password}
+                          value={password}
                           onChange={this.handleChange}
                           required
                         />

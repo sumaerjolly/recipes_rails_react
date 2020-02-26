@@ -7,7 +7,7 @@ class Registration extends Component {
     this.state = {
       username: '',
       password: '',
-      password_confirmation: '',
+      passwordConfirmation: '',
       registrationErrors: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,14 +23,15 @@ class Registration extends Component {
   }
 
   handleSubmit(e) {
+    const { username, password, passwordConfirmation } = this.state;
     axios
       .post(
         '/registrations',
         {
           user: {
-            username: this.state.username,
-            password: this.state.password,
-            password_confirmation: this.state.password_confirmation,
+            username,
+            password,
+            passwordConfirmation,
           },
         },
         {
@@ -43,10 +44,10 @@ class Registration extends Component {
         }
       })
       .catch(() => {
-        this.setState({
-          ...this.state,
+        this.setState(prevState => ({
+          ...prevState,
           registrationErrors: true,
-        });
+        }));
       });
     e.preventDefault();
   }
@@ -58,7 +59,8 @@ class Registration extends Component {
   }
 
   errorAlert() {
-    if (this.state.registrationErrors) {
+    const { registrationErrors } = this.state;
+    if (registrationErrors) {
       return (
         <div
           className="alert alert-warning alert-dismissible fade show mt-0 mb-0"
@@ -76,9 +78,11 @@ class Registration extends Component {
         </div>
       );
     }
+    return null;
   }
 
   render() {
+    const { username, password, passwordConfirmation } = this.state;
     return (
       <div>
         {this.errorAlert()}
@@ -100,7 +104,7 @@ class Registration extends Component {
                           type="text"
                           name="username"
                           placeholder="username"
-                          value={this.state.username}
+                          value={username}
                           onChange={this.handleChange}
                           required
                         />
@@ -112,7 +116,7 @@ class Registration extends Component {
                           type="password"
                           name="password"
                           placeholder="Password"
-                          value={this.state.password}
+                          value={password}
                           onChange={this.handleChange}
                           required
                         />
@@ -122,9 +126,9 @@ class Registration extends Component {
                         <input
                           className="form-control"
                           type="password"
-                          name="password_confirmation"
+                          name="passwordConfirmation"
                           placeholder="Password Confirmation"
-                          value={this.state.password_confirmation}
+                          value={passwordConfirmation}
                           onChange={this.handleChange}
                           required
                         />
