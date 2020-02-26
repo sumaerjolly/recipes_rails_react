@@ -40,3 +40,15 @@ form:before {
 a {
   cursor: pointer;
 }
+
+@media screen and (max-width: 600px) {
+  .testing img {
+    height: 470px;
+    margin-top: 50px;
+  }
+}
+@media screen and (min-width: 700px) {
+  .testing img {
+    height: 550px;
+  }
+}

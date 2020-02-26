@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { setRecipes } from '../actions';
+import Carousel from 'react-bootstrap/Carousel';
 
 class Recipes extends Component {
   constructor(props) {
@@ -24,24 +25,24 @@ class Recipes extends Component {
   render() {
     const { recipes } = this.props;
     const allRecipes = recipes.map((recipe, index) => (
-      <div key={index}>
-        <div>
-          <img
-            src={recipe.image}
-            alt={`${recipe.name} image`}
-            style={{ width: 300, height: 300 }}
-          />
-          <div>
-            <h5>{recipe.name}</h5>
-            <Link to={`/recipe/${recipe.id}`}>View Recipe</Link>
-          </div>
-        </div>
-      </div>
+      <Carousel.Item key={index}>
+        <img
+          className="d-block w-100"
+          src={recipe.image}
+          alt={`${recipe.name} image`}
+        />
+        <Carousel.Caption>
+          <h3>{recipe.name}</h3>
+          <Link className="btn-custom" to={`/recipe/${recipe.id}`}>
+            View Recipe
+          </Link>
+        </Carousel.Caption>
+      </Carousel.Item>
     ));
     return (
       <div>
-        <h1>Recipes</h1>
-        <div>{allRecipes}</div>
+        <h1 className="text-center">Recipes</h1>
+        <Carousel className="testing">{allRecipes}</Carousel>
       </div>
     );
   }
