@@ -5,6 +5,7 @@ import axios from 'axios';
 import { setFavourites } from '../actions';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import CardColumns from 'react-bootstrap/CardColumns';
 
 class Favourites extends Component {
   constructor(props) {
@@ -51,12 +52,16 @@ class Favourites extends Component {
     if (favourites.length > 0) {
       yourFavourites = favourites.map((favourite, index) => (
         <Card className="text-center" key={index}>
-          <Card.Header>Favourite {index + 1}</Card.Header>
+          <Card.Img
+            variant="top"
+            src={favourite.image}
+            alt={`${favourite.name} image`}
+            style={{ height: 250 }}
+          />
           <Card.Body>
             <Card.Title>
               <Link to={`/recipe/${favourite.id}`}>{favourite.name}</Link>
             </Card.Title>
-            <Card.Text></Card.Text>
             <Button
               className="btn btn-danger"
               variant="primary"
@@ -71,8 +76,12 @@ class Favourites extends Component {
     }
     return (
       <div>
-        <h1 className="text-center orange">Favourite Recipes</h1>
-        {yourFavourites}
+        <section className="jumbotron jumbotron-fluid text-center favourites">
+          <div className="container py-5">
+            <h1 className="display-4">Your favourites</h1>
+          </div>
+        </section>
+        <CardColumns>{yourFavourites}</CardColumns>
       </div>
     );
   }
