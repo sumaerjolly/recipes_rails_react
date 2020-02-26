@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
-    const { setRecipeDetails } = this.props;
+    const { setRecipeDetails, history } = this.props;
     const {
       match: {
         params: { id },
@@ -29,8 +30,23 @@ class Recipe extends Component {
           setRecipeDetails(response.data);
         }
       })
-      .catch(() => this.props.history.push('/'));
+      .catch(() => history.push('/'));
     this.getFavourites();
+  }
+
+  getIngredients() {
+    const { recipe } = this.props;
+    let ingredientList = recipe.ingredients;
+    if (ingredientList) {
+      ingredientList = recipe.ingredients
+        .split(',')
+        .map((ingredient, index) => (
+          <li key={index} className="list-group-item">
+            {ingredient}
+          </li>
+        ));
+    }
+    return ingredientList;
   }
 
   addHtmlEntities(str) {
@@ -39,7 +55,17 @@ class Recipe extends Component {
       .replace(/&gt;/g, '>');
   }
 
+  getFavourites() {
+    const { setFavourites } = this.props;
+    axios
+      .get(' /api/v1/favourites')
+      .then(response => {
+        setFavourites(response.data);
+      });
+  }
+
   addToFavourites() {
+    const { history } = this.props;
     const {
       match: {
         params: { id },
@@ -47,24 +73,8 @@ class Recipe extends Component {
     } = this.props;
     axios
       .post(' /api/v1/favourites', { id })
-      .then(response => {
-        console.log(response);
-        this.props.history.push('/favourites');
-      })
-      .catch(error => {
-        console.log('favourites errror', error);
-      });
-  }
-
-  getFavourites() {
-    const { setFavourites } = this.props;
-    axios
-      .get(' /api/v1/favourites')
-      .then(response => {
-        setFavourites(response.data);
-      })
-      .catch(error => {
-        console.log('favourites error', error);
+      .then(() => {
+        history.push('/favourites');
       });
   }
 
@@ -79,34 +89,17 @@ class Recipe extends Component {
     id = Number(id);
 
     return favouritesId.includes(id) ? (
-      <button className="btn">
+      <button type="button" className="btn">
         <span aria-label="a rocket blasting off" role="img">
           ✅
         </span>
         Added To Favourites
       </button>
     ) : (
-      <button className="btn-custom" onClick={this.addToFavourites}>
+      <button type="button" className="btn-custom" onClick={this.addToFavourites}>
         Add To Favourites
       </button>
     );
-  }
-
-  getIngredients() {
-    const { recipe } = this.props;
-    let ingredientList = recipe.ingredients;
-    console.log(ingredientList);
-    console.log(typeof recipe.ingredients);
-    if (ingredientList) {
-      ingredientList = recipe.ingredients
-        .split(',')
-        .map((ingredient, index) => (
-          <li key={index} className="list-group-item">
-            {ingredient}
-          </li>
-        ));
-      return ingredientList;
-    }
   }
 
   render() {
@@ -117,7 +110,7 @@ class Recipe extends Component {
         <div className="hero position-relative d-flex align-items-center justify-content-center">
           <img
             src={recipe.image}
-            alt={`${recipe.name} image`}
+            alt={`${recipe.name}`}
             className="img-fluid position-absolute"
           />
           <div className="overlay bg-dark position-absolute" />
