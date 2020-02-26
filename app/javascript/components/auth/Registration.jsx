@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -98,7 +99,9 @@ class Registration extends Component {
                       className="justify-content-center"
                     >
                       <div className="form-group">
-                        <label className="sr-only">Username</label>
+                        <label htmlFor="username" className="sr-only">
+                          Username
+                        </label>
                         <input
                           className="form-control"
                           type="text"
@@ -108,9 +111,12 @@ class Registration extends Component {
                           onChange={this.handleChange}
                           required
                         />
+
                       </div>
                       <div className="form-group">
-                        <label className="sr-only">Password</label>
+                        <label htmlFor="password" className="sr-only">
+                          Password
+                        </label>
                         <input
                           className="form-control"
                           type="password"
@@ -120,9 +126,13 @@ class Registration extends Component {
                           onChange={this.handleChange}
                           required
                         />
+
                       </div>
                       <div className="form-group">
-                        <label className="sr-only">Password Confirmation</label>
+                        <label htmlFor="passwordConfirmation" className="sr-only">
+                          Password Confirmation
+
+                        </label>
                         <input
                           className="form-control"
                           type="password"
@@ -132,6 +142,7 @@ class Registration extends Component {
                           onChange={this.handleChange}
                           required
                         />
+
                       </div>
                       <button type="submit" className="btn-custom">
                         Sign Up
