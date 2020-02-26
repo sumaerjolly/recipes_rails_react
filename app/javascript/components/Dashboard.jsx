@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Dashboard(props) {
+function Dashboard({ currentUser }) {
   return (
     <div>
       <h1>Dashboard</h1>
       <h2>
         Status:
-        {props.currentUser}
+        {currentUser}
       </h2>
     </div>
   );
