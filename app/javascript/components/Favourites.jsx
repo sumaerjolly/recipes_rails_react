@@ -81,7 +81,9 @@ class Favourites extends Component {
         <section className="jumbotron jumbotron-fluid text-center favourites">
           <div className="container py-5">
             <h1 className="display-4">
-              {this.props.user.user.username} favourites
+              {this.props.user.user.username}
+              {' '}
+              favourites
             </h1>
           </div>
         </section>
@@ -93,14 +95,14 @@ class Favourites extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  favourites: state.favourites
+  favourites: state.favourites,
 });
 
 const mapDispatchToProps = dispatch => ({
-  setFavourites: favourites => dispatch(setFavourites(favourites))
+  setFavourites: favourites => dispatch(setFavourites(favourites)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Favourites);
