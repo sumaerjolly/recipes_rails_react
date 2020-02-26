@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Navbar extends Component {
@@ -9,19 +9,18 @@ class Navbar extends Component {
   }
 
   handleLogoutClick() {
+    const { handleLogout, history } = this.props;
     axios
       .delete('/logout', { withCredentials: true })
-      .then(response => {
-        this.props.handleLogout();
-        this.props.history.push('/');
-      })
-      .catch(error => {
-        console.log('logout error', error);
+      .then(() => {
+        handleLogout();
+        history.push('/');
       });
   }
 
   render() {
-    const navlinks = this.props.currentUser ? (
+    const { currentUser } = this.props;
+    const navlinks = currentUser ? (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item pr-2">
           <NavLink to="/recipes" className="nav-link">
