@@ -15,11 +15,12 @@ import Navbar from './Navbar';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      user: {},
-    };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
   }
 
   checkLoginStatus() {
@@ -28,42 +29,25 @@ class App extends Component {
       .get('logged_in.json', { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {
-          this.setState({
-            user: response.data.user,
-          });
           login(response.data.user);
         } else if (!response.data.logged_in) {
           logout();
         }
-      })
-      .catch(error => {
-        console.log('check login error', error);
       });
-  }
-
-  componentDidMount() {
-    this.checkLoginStatus();
   }
 
   handleLogin(data) {
     const { login } = this.props;
-    this.setState({
-      user: data.user,
-    });
     login(data.user);
   }
 
   handleLogout() {
-    this.setState({
-      user: {},
-    });
     const { logout } = this.props;
     logout();
   }
 
   render() {
     const { user } = this.props;
-    // console.log(user.user.username);
     return (
       <div className="app">
         <Router>
