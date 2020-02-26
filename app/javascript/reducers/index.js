@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   recipes: recipesReducer,
   recipe: recipeReducer,
-  favourites: favouritesReducer
+  favourites: favouritesReducer,
 });
 
 export default rootReducer;

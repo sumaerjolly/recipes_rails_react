@@ -7,6 +7,7 @@ class Navbar extends Component {
     super(props);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
+
   handleLogoutClick() {
     axios
       .delete('/logout', { withCredentials: true })
@@ -18,6 +19,7 @@ class Navbar extends Component {
         console.log('logout error', error);
       });
   }
+
   render() {
     const navlinks = this.props.currentUser ? (
       <ul className="navbar-nav ml-auto">
@@ -73,7 +75,7 @@ class Navbar extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">

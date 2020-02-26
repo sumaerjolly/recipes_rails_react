@@ -18,8 +18,8 @@ class Recipe extends Component {
     const { setRecipeDetails } = this.props;
     const {
       match: {
-        params: { id }
-      }
+        params: { id },
+      },
     } = this.props;
 
     axios
@@ -42,11 +42,11 @@ class Recipe extends Component {
   addToFavourites() {
     const {
       match: {
-        params: { id }
-      }
+        params: { id },
+      },
     } = this.props;
     axios
-      .post(' /api/v1/favourites', { id: id })
+      .post(' /api/v1/favourites', { id })
       .then(response => {
         console.log(response);
         this.props.history.push('/favourites');
@@ -71,8 +71,8 @@ class Recipe extends Component {
   favouritesButton() {
     let {
       match: {
-        params: { id }
-      }
+        params: { id },
+      },
     } = this.props;
     const { favourites } = this.props;
     const favouritesId = favourites.map(recipe => recipe.id);
@@ -137,7 +137,7 @@ class Recipe extends Component {
               <h5 className="mb-3 mt-2">Preparation Instructions</h5>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: `${recipeInstruction}`
+                  __html: `${recipeInstruction}`,
                 }}
               />
             </div>
@@ -156,15 +156,15 @@ class Recipe extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   recipe: state.recipe,
-  favourites: state.favourites
+  favourites: state.favourites,
 });
 
 const mapDispatchToProps = dispatch => ({
   setRecipeDetails: recipe => dispatch(setRecipeDetails(recipe)),
-  setFavourites: favourites => dispatch(setFavourites(favourites))
+  setFavourites: favourites => dispatch(setFavourites(favourites)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Recipe);

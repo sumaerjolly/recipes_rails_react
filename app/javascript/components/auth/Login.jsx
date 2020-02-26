@@ -7,7 +7,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      loginErrors: ''
+      loginErrors: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,12 +27,12 @@ class Login extends Component {
         {
           user: {
             username: this.state.username,
-            password: this.state.password
-          }
+            password: this.state.password,
+          },
         },
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       )
       .then(response => {
         if (response.data.logged_in) {
@@ -40,7 +40,7 @@ class Login extends Component {
         } else if (response.data.status === 401) {
           this.setState({
             ...this.state,
-            loginErrors: true
+            loginErrors: true,
           });
         }
       })
@@ -52,7 +52,7 @@ class Login extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 

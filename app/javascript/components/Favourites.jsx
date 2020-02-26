@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { setFavourites } from '../actions';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardColumns from 'react-bootstrap/CardColumns';
+import { setFavourites } from '../actions';
 
 class Favourites extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Favourites extends Component {
     this.removeFavourite = this.removeFavourite.bind(this);
     this.getFavourites = this.getFavourites.bind(this);
   }
+
   componentDidMount() {
     this.getFavourites();
   }
@@ -30,7 +31,7 @@ class Favourites extends Component {
   }
 
   removeFavourite(e) {
-    const id = e.target.id;
+    const { id } = e.target;
     axios
       .delete(`/api/v1/favourites/${id}`)
       .then(response => {
@@ -40,6 +41,7 @@ class Favourites extends Component {
         console.log('delete errors', error);
       });
   }
+
   render() {
     const { favourites } = this.props;
     let yourFavourites = (
@@ -78,7 +80,9 @@ class Favourites extends Component {
       <div>
         <section className="jumbotron jumbotron-fluid text-center favourites">
           <div className="container py-5">
-            <h1 className="display-4">Your favourites</h1>
+            <h1 className="display-4">
+              {this.props.user.user.username} favourites
+            </h1>
           </div>
         </section>
         <CardColumns>{yourFavourites}</CardColumns>

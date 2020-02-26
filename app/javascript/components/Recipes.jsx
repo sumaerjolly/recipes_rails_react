@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { setRecipes } from '../actions';
 import Carousel from 'react-bootstrap/Carousel';
+import { setRecipes } from '../actions';
 
 class Recipes extends Component {
   constructor(props) {
@@ -50,14 +50,14 @@ class Recipes extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  recipes: state.recipes
+  recipes: state.recipes,
 });
 
 const mapDispatchToProps = dispatch => ({
-  setRecipes: recipes => dispatch(setRecipes(recipes))
+  setRecipes: recipes => dispatch(setRecipes(recipes)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Recipes);

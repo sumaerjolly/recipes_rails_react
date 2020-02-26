@@ -8,7 +8,7 @@ class Registration extends Component {
       username: '',
       password: '',
       password_confirmation: '',
-      registrationErrors: null
+      registrationErrors: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -29,12 +29,12 @@ class Registration extends Component {
           user: {
             username: this.state.username,
             password: this.state.password,
-            password_confirmation: this.state.password_confirmation
-          }
+            password_confirmation: this.state.password_confirmation,
+          },
         },
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       )
       .then(response => {
         if (response.data.status === 'created') {
@@ -45,7 +45,7 @@ class Registration extends Component {
         console.log('registration error', error);
         this.setState({
           ...this.state,
-          registrationErrors: true
+          registrationErrors: true,
         });
       });
     e.preventDefault();
@@ -53,7 +53,7 @@ class Registration extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 

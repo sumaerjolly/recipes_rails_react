@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import Home from './Home';
 import { connect } from 'react-redux';
+import Home from './Home';
 import { login, logout } from '../actions/index';
 import Dashboard from './Dashboard';
 import Recipes from './Recipes';
@@ -16,7 +16,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: {}
+      user: {},
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -29,7 +29,7 @@ class App extends Component {
       .then(response => {
         if (response.data.logged_in) {
           this.setState({
-            user: response.data.user
+            user: response.data.user,
           });
           login(response.data.user);
         } else if (!response.data.logged_in) {
@@ -48,14 +48,14 @@ class App extends Component {
   handleLogin(data) {
     const { login } = this.props;
     this.setState({
-      user: data.user
+      user: data.user,
     });
     login(data.user);
   }
 
   handleLogout() {
     this.setState({
-      user: {}
+      user: {},
     });
     const { logout } = this.props;
     logout();
@@ -116,15 +116,15 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user)),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);
