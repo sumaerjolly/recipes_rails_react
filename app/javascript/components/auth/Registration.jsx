@@ -17,8 +17,9 @@ class Registration extends Component {
   }
 
   handleSuccessfulAuth(data) {
-    this.props.handleLogin(data);
-    this.props.history.push('/recipes');
+    const { handleLogin, history } = this.props;
+    handleLogin(data);
+    history.push('/recipes');
   }
 
   handleSubmit(e) {
@@ -41,8 +42,7 @@ class Registration extends Component {
           this.handleSuccessfulAuth(response.data);
         }
       })
-      .catch(error => {
-        console.log('registration error', error);
+      .catch(() => {
         this.setState({
           ...this.state,
           registrationErrors: true,
