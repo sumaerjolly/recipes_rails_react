@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { setFavourites } from '../actions';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 class Favourites extends Component {
   constructor(props) {
@@ -39,28 +41,38 @@ class Favourites extends Component {
   }
   render() {
     const { favourites } = this.props;
-    const yourFavourites = favourites.map((favourite, index) => (
-      <div key={index}>
-        <div>
-          <img
-            src={favourite.image}
-            alt={`${favourite.name} image`}
-            style={{ width: 300, height: 300 }}
-          />
-          <div>
-            <h5>{favourite.name}</h5>
-            <Link to={`/recipe/${favourite.id}`}>View Recipe</Link>
-            <button id={favourite.id} onClick={this.removeFavourite}>
-              Remove from favourites
-            </button>
-          </div>
-        </div>
-      </div>
-    ));
+    let yourFavourites = (
+      <p className="text-center">
+        You have no favourites currently please add some
+        <br />
+        <Link to="/recipes">Add Favourite Recipes</Link>
+      </p>
+    );
+    if (favourites.length > 0) {
+      yourFavourites = favourites.map((favourite, index) => (
+        <Card className="text-center" key={index}>
+          <Card.Header>Favourite {index + 1}</Card.Header>
+          <Card.Body>
+            <Card.Title>
+              <Link to={`/recipe/${favourite.id}`}>{favourite.name}</Link>
+            </Card.Title>
+            <Card.Text></Card.Text>
+            <Button
+              className="btn btn-danger"
+              variant="primary"
+              id={favourite.id}
+              onClick={this.removeFavourite}
+            >
+              Remove From Favourites
+            </Button>
+          </Card.Body>
+        </Card>
+      ));
+    }
     return (
       <div>
-        <h1>Favourite Recipes</h1>
-        <div>{yourFavourites}</div>
+        <h1 className="text-center orange">Favourite Recipes</h1>
+        {yourFavourites}
       </div>
     );
   }
