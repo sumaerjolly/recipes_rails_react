@@ -23,12 +23,8 @@ class Favourites extends Component {
     axios
       .get(' /api/v1/favourites')
       .then(response => {
-        console.log(response.data)
         setFavourites(response.data);
-      })
-      .catch(error => {
-        console.log("error in getting favourites",error)
-      })
+      });
   }
 
   removeFavourite(e) {

@@ -29,7 +29,6 @@ class App extends Component {
     axios
       .get(' /logged_in', { withCredentials: true })
       .then(response => {
-        console.log(response);
         if (response.data.logged_in) {
           login(response.data.user);
         } else if (!response.data.logged_in) {

@@ -38,7 +38,6 @@ class Login extends Component {
         },
       )
       .then(response => {
-        console.log(response);
         if (response.data.logged_in) {
           this.handleSuccessfulAuth(response.data);
         } else if (response.data.status === 401) {
