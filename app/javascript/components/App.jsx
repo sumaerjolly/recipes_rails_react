@@ -17,6 +17,7 @@ class App extends Component {
     super();
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
 
   componentDidMount() {
