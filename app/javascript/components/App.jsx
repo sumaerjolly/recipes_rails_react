@@ -26,7 +26,7 @@ class App extends Component {
   checkLoginStatus() {
     const { login, logout } = this.props;
     axios
-      .get('logged_in.json', { withCredentials: true })
+      .get('/logged_in', { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {
           login(response.data.user);
