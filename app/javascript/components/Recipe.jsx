@@ -58,7 +58,7 @@ class Recipe extends Component {
   getFavourites() {
     const { setFavourites } = this.props;
     axios
-      .get(' https://mastrecipes.herokuapp.com/api/v1/favourites')
+      .get(' /api/v1/favourites')
       .then(response => {
         console.log(response.data)
         setFavourites(response.data);
@@ -76,7 +76,7 @@ class Recipe extends Component {
       },
     } = this.props;
     axios
-      .post(' https://mastrecipes.herokuapp.com/api/v1/favourites', { id })
+      .post(' /api/v1/favourites', { id })
       .then((response) => {
         console.log(response.data);
         history.push('/favourites');
