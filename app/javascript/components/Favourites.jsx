@@ -21,10 +21,14 @@ class Favourites extends Component {
   getFavourites() {
     const { setFavourites } = this.props;
     axios
-      .get(' /api/v1/favourites')
+      .get(' https://mastrecipes.herokuapp.com/api/v1/favourites')
       .then(response => {
+        console.log(response.data)
         setFavourites(response.data);
-      });
+      })
+      .catch(error => {
+        console.log("error in getting favourites",error)
+      })
   }
 
   removeFavourite(e) {
