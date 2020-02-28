@@ -1,12 +1,12 @@
 class Api::V1::FavouritesController < ApplicationController
   include CurrentUserConcern
-  
+
   def index
-    if @current_user 
-      favourites = @current_user.favourites
+    if @current_user
+      favourites = @current_user.recipes
       render json: favourites
-    else 
-      render json: {message: "You need to be signed in"}, status: 500
+    else
+      render json: { message: 'You need to be signed in' }, status: 500
     end
   end
 
@@ -16,10 +16,10 @@ class Api::V1::FavouritesController < ApplicationController
       if favourite.save
         render json: favourite
       else
-        render json: favourite.errors 
+        render json: favourite.errors
       end
     else
-      render json: {message: "You need to be signed in"}, status: 500
+      render json: { message: 'You need to be signed in' }, status: 500
     end
   end
 
@@ -30,10 +30,10 @@ class Api::V1::FavouritesController < ApplicationController
         favourite.destroy
         render json: { message: 'Removed from favourites' }
       else
-        render json: {message:'There was an error' }
+        render json: { message: 'There was an error' }
       end
-    else 
-      render json: {message: "You need to be signed in"}, status: 500
+    else
+      render json: { message: 'You need to be signed in' }, status: 500
     end
   end
 end
